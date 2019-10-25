@@ -1,0 +1,10 @@
+{
+  filename: './data/Frac1p6_1_RADEC.dat',
+  dim: 2,
+  coord: 'Ra Dec',
+  eps: 'None',
+  Nmin: 'None'
+
+}
+
+
