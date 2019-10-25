@@ -1,4 +1,4 @@
-# R2D2: Small-scale Significant DBSCAN Detection
+# S2D2: Small-scale Significant DBSCAN Detection
 
 Python3 code for the detection of small pristine structure with 3-sigma significance associated to position/velocity of stars (or young stellar objects) in starForming Regions. Developed under the SFM (StarFormMapper) EU project.
 
