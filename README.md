@@ -62,12 +62,12 @@ Ascii file named as the input file with the extension .out containing the coordi
 
 ## Requirements
 Python3 with libraries:
-	Astropy
+	astropy
 	numpy
 	scipy
 	scikit.learn
 	yaml
-
+    argparse
 ## Description
 
 ### 2D
