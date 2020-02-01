@@ -3,8 +3,8 @@
   dim: 2,
   coord: 'Ra Dec',
   eps: 'None',
-  Nmin: 'None'
-
+  Nmin: 'None',
+  Qlim: 0.7
 }
 
 
