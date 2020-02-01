@@ -61,7 +61,7 @@ class SFRegion2D(StarFormingRegion):
         """
         [self.nn6ind, self.nn6dist]=auxFuncts.nearestNeighbor(self.distMat,6)
         dmean=np.mean(self.nn6dist)
-        self.rho=5/(np.pi*dmean**2)
+        self.rho=1.151082*5/(np.pi*dmean**2)
         return
 
     def calculateEps(self):
@@ -126,49 +126,6 @@ class SFRegion2D(StarFormingRegion):
         ymin = self.bBox.minCoords[1]
         Kest = astrostats.RipleysKEstimator(area=vol , x_max=xmax, y_max=ymax, x_min=xmin, y_min=ymin)
         return (Kest)
-
-    def calculateHomogRadius(self,n=100):
-        mod='ohser'
-        obs=self.estK(self.points,self.rads,mode=mod)
-        [envHi, envLo]=self.envelopeRipley(n, mod)
-        envTheo=self.estK.poisson(self.rads)
-       # print(envTheo)
-        high2=envHi+(envHi-envTheo)
-        inEnvelope=(high2-obs <0)
-       # print(inEnvelope)
-        self.radHomog=0
-        if(sum(inEnvelope)>0):
-            self.radHomog=self.rads[inEnvelope][0]
-        return
-
-
-    def envelopeRipley(self,n,mod):
-        env=np.zeros([n,len(self.rads)])
-        for i in range(n):
-           # print(i)
-            rPoints=np.random.uniform(low=self.bBox.minCoords, high=self.bBox.maxCoords, size=self.points.shape)
-            env[i,:]=self.estK(data=rPoints,radii=self.rads,mode=mod)
-
-        hi=np.max(env,axis=0)
-        lo=np.min(env,axis=0)
-
-        return(hi,lo)
-    
-    def generateCSR(self):
-        rand=np.random.uniform(low=self.bBox.minCoords, high=self.bBox.maxCoords, size=self.points.shape)
-        return rand
-
-    def increaseEpsilon(self, nSd=1):
-        """
-        Increases epsilon by nSd times the std deviation of the Nmin nearest neighbour distance distribution
-        """
-        exp=auxFuncts.integraRNDensNN(1,self.Nmin,2, self.rho, 0, np.inf)
-        exp2=auxFuncts.integraRNDensNN(2,self.Nmin,2, self.rho, 0, np.inf)
-
-        sd=np.sqrt(exp2-exp**2)
-        print(sd)
-        self.setEps(self.eps+nSd*sd)
-        return
 
      
     def detectStructs(self):
