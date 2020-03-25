@@ -21,11 +21,12 @@ python3 main.py --fname data/inputExample.yaml
 Example file content:
 ```
 {
-  filename: './data/Frac1p6_1_RADEC.dat',
-  dim: 2,
-  coord: 'Ra Dec',
-  eps: 'None',
-  Nmin: 'None'
+  filename: './data/Frac1p6_1_RADEC.dat',
+  dim: 2,
+  coord: 'Ra Dec',
+  eps: 'None',
+  Nmin: 'None',
+  Qlim: 0.7
 }
 ```
 
