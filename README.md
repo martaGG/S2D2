@@ -71,21 +71,22 @@ Significance limit above which structures will be retrieved. Ussed to calculate 
 Must be an appropriate percentage value
 
 ## Output
--Console outputs some values of variables and status 
+- Console outputs some values of variables and status 
 
 - Ascii file named as the input file with the extension .out containing the coordinates of each star in the region as in the input, and an additional column with an integer representing the number of substructure assigned. The program uses the default python convention, so value -1 represents noise stars (those not assigned to any cluster).
 
--pdf file named as the input file with the extension .pdf with a plot of the region where:
+- pdf file named as the input file with the extension .pdf with a plot of the region where:
   - grey stars are noise.
   - stars in significant structures are overplotted in colour. Each nest will be plotted in a different colour taken from a viridis colour table with as many different shades as NESTs, so the specific colours will depend on the amount of structures retrieved. 
 ## Requirements
 Python3 with libraries:
-	astropy
-	numpy
-	scipy
-	scikit.learn
-	yaml
-    argparse
+-	astropy
+-	numpy
+-	scipy
+-	scikit.learn
+-	yaml
+- argparse
+- matplotlib
 ## Description
 
 ### 2D
@@ -117,10 +118,10 @@ We run scikit.learn’s DBSCAN for the user defined eps and Nmin.
 Please cite Gonzalez et al 2020 if you use this code. 
 ## References
 To be completed
--Cartwright & Withworth, 2003
--González et al 2020.
--Joncour et al. 2017
--Joncour et al. 2018
+- Cartwright & Withworth, 2003
+- González et al 2020.
+- Joncour et al. 2017
+- Joncour et al. 2018
 
 
 
