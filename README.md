@@ -44,11 +44,11 @@ Future: limited options ('2D','3D','2+2D', '3+2D'...)
 
 #### coord
 Coordinate frame of the input, depending on the dimension
-##### 2D
-- 'Ra Dec': expects input data in Right ascension, declination, in degrees to calculate the great circle distance.
-- 'X Y': expects float arbitrary input data coordinates, calculates euclidean distance.
+- 2D
+  - 'Ra Dec': expects input data in Right ascension, declination, in degrees to calculate the great circle distance.
+  - 'X Y': expects float arbitrary input data coordinates, calculates euclidean distance.
 
-**if a different string is input, by default it will go into 'X Y' mode 
+  **if a different string is input, by default it will go into 'X Y' mode 
 
 #### eps
 Scale parameter supplied to DBSCAN, associated with the size of the structures to search.
