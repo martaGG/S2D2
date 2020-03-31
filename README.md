@@ -72,7 +72,9 @@ Must be an appropriate percentage value
 
 ## Output
 -Console outputs some values of variables and status 
+
 - Ascii file named as the input file with the extension .out containing the coordinates of each star in the region as in the input, and an additional column with an integer representing the number of substructure assigned. The program uses the default python convention, so value -1 represents noise stars (those not assigned to any cluster).
+
 -pdf file named as the input file with the extension .pdf with a plot of the region where:
   - grey stars are noise.
   - stars in significant structures are overplotted in colour. Each nest will be plotted in a different colour taken from a viridis colour table with as many different shades as NESTs, so the specific colours will depend on the amount of structures retrieved. 
