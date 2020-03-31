@@ -11,8 +11,11 @@ def readInput(fyaml):
 def checkInput(inp):
     assert inp["dim"]== 2, "only can use Dimension2"
     if(inp['eps']!='None'):
-        assert type(inp['eps']) is float, "Eps must be a float"
-        assert type(inp['Nmin']) is int, "Must provide integer min number of points"
+        assert type(inp['eps']) is float, "If Eps is provided, it must be a float"
+        assert type(inp['Nmin']) is int, "If Nmin is provided, must be an integer"
+    assert type(float(inp['Signif'])) is float, "Significance level must be a float"
+
+
 
 def distMatGcirc(points):
     npoints=len(points[:,0])

@@ -14,7 +14,9 @@ ofil='.'.join(spl[:-1])+'.out'
 ofilplot='.'.join(spl[:-1])+'.pdf'
 print(ofil)
 auxFuncts.checkInput(inp)
-
+headerOutput='x  y  cluster'
+if(inp['coord']=='Ra Dec'):
+    headerOutput='ra  dec  cluster'
 pts=np.genfromtxt(inp['filename'], skip_header=1, delimiter='\t')
 if(inp['dim']==2):
     sfR2D=SFRegion2D(pts, inp['coord'])
@@ -26,7 +28,6 @@ if(inp['dim']==2):
         print('RHO',sfR2D.rho)
         sfR2D.calculateEps()
         print('EPS',sfR2D.eps)
-        assert ((inp['Signif']<100)&(inp['Signif']>0)), "Check input significance. must ve valid percentage value"
         sfR2D.setSignif(inp['Signif'])
         print('SIGNIF', sfR2D.signif)
         sfR2D.calculateNmin()
@@ -34,7 +35,7 @@ if(inp['dim']==2):
         sfR2D.detectStructs()
         npts=pts.shape[0]
         salid = np.hstack((pts,sfR2D.db.labels_.reshape(npts,1)))
-        np.savetxt(ofil,salid,header='ra  dec  cluster')
+        np.savetxt(ofil,salid,header=headerOutput)
         sfR2D.plotStructs(ofilplot)
     elif(inp['eps']>0):
         assert inp['Nmin']>0, "please input also a minimum number of points for dbscan"
@@ -46,7 +47,7 @@ if(inp['dim']==2):
         sfR2D.detectStructs()
         npts=pts.shape[0]
         salid = np.hstack((pts,sfR2D.db.labels_.reshape(npts,1)))
-        np.savetxt(ofil,salid,header='ra  dec  cluster')
+        np.savetxt(ofil,salid,header=headerOutput)
         sfR2D.plotStructs(ofilplot)
     else:
         print('invalid value of eps, check documentation')

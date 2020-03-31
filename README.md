@@ -2,7 +2,7 @@
 
 Python3 code for the detection of small pristine structure with 3-sigma significance associated to position/velocity of stars (or young stellar objects) in starForming Regions. Developed under the SFM (StarFormMapper) EU project.
 
-S2D2 uses DBSCAN detect the smallest significant structure in a spatial/spatial-kinematic space. The procedure proposes, in structured regions, calculation of the epsilon and Nmin parameters (as described in our paper REFS!!) for DBSCAN to retrieve the smallest structures in the region with a 3-sigma level of significance. If the region is not structured, or the user wants it, eps and Nmin can be supplied, and Dbscan will be performed with these parameters, without, however, guaranteeing any level of significance.
+S2D2 uses DBSCAN detect the smallest significant structure in a spatial/spatial-kinematic space. The procedure proposes, in structured regions, calculation of the epsilon and Nmin parameters (as described in González et al. 2020 and references therein) for DBSCAN to retrieve the smallest structures in the region with a 3-sigma level of significance. If the region is not structured, or the user wants it, eps and Nmin can be supplied, and Dbscan will be performed with these parameters, without, however, guaranteeing any level of significance.
 
 Usage example:
 ```
@@ -26,7 +26,8 @@ Example file content:
   coord: 'Ra Dec',
   eps: 'None',
   Nmin: 'None',
-  Qlim: 0.7
+  Qlim: 0.7,
+  Signif: 99.85
 }
 ```
 
@@ -34,33 +35,47 @@ Example file content:
 
 #### filename
 Path for file with coordinates of stars/objects in your region.
-V0: Ascii file with header and tab delimiter
+V1: Ascii file with header and tab delimiter
 
 #### dim
 Dimension of the space of search.
-V0: Integer, only=2.
+V1: Integer, only=2.
 Future: limited options ('2D','3D','2+2D', '3+2D'...)
 
 #### coord
 Coordinate frame of the input, depending on the dimension
 ##### 2D
-V0: 'Ra, Dec'
-Future: 'l,b'
+- 'Ra Dec': expects input data in Right ascension, declination, in degrees to calculate the great circle distance.
+- 'X Y': expects float arbitrary input data coordinates, calculates euclidean distance.
+
+**if a different string is input, by default it will go into 'X Y' mode 
 
 #### eps
 Scale parameter supplied to DBSCAN, associated with the size of the structures to search.
-Default: 'None' to search for the smallest scale in structured regions.
-If a float eps is supplied, Nmin must also be supplied.
+-Default: 'None' to search for the smallest scale in structured regions.
+-If a float eps is supplied, Nmin must also be supplied.
 
 
 #### Nmin
 Number of points supplied to DBSCAN, associated with the density of a neighbourhood with radius eps.
-Default: 'None' to calculate the Nmin guaranteeing 3 sigma significance.
-If an integer Nmin is supplied, eps must also be supplied.
+-Default: 'None' to calculate the Nmin guaranteeing the significance supplied by the user above random expectation.
+-If an integer Nmin is supplied, eps must also be supplied.
+
+#### Qlim
+limit of Q parameter for considering a region structured, and calculate automatically the eps and Nmin values according to the procedure, as described in González et al. 2020.
+
+We note that the classical limit Q parameter for structured regions is 0.8, and that a conservative limit of 0.7 avoids the possibility of analyising a region withous structure (as described in Gonzalez et al. 2020)
+
+#### Signif
+Significance limit above which structures will be retrieved. Ussed to calculate the minimum number of points.  
+Must be an appropriate percentage value
 
 ## Output
-Ascii file named as the input file with the extension .out containing the coordinates of each star in the region (in RA, DEC) and an additional column with an integer representing the number of substructure assigned. The value -1 represents noise stars (those not assigned to any cluster).
-
+-Console outputs some values of variables and status 
+- Ascii file named as the input file with the extension .out containing the coordinates of each star in the region as in the input, and an additional column with an integer representing the number of substructure assigned. The program uses the default python convention, so value -1 represents noise stars (those not assigned to any cluster).
+-pdf file named as the input file with the extension .pdf with a plot of the region where:
+  - grey stars are noise.
+  - stars in significant structures are overplotted in colour. Each nest will be plotted in a different colour taken from a viridis colour table with as many different shades as NESTs, so the specific colours will depend on the amount of structures retrieved. 
 ## Requirements
 Python3 with libraries:
 	astropy
@@ -72,12 +87,11 @@ Python3 with libraries:
 ## Description
 
 ### 2D
-We refer to (SFM paper, REF!!!) and references therein for a complete description of the procedure.
+We refer to Gonzalez et al (2020) and references therein for a complete description of the procedure.
 
-Our default coordinates are Ra, Dec, and the distance used is the great circle one. 
 
 ### Structured regions
-We will consider that a starForming region is structured when the Q parameter (Cart&With…REF!!!) is lower than 0.7. In that case, and if the user has not provided eps and Nmin (default) we propose our procedure to calculate them and obtain the smallest scale significant structure in the region.
+We will consider that a starForming region is structured when the Q parameter (Cartwright & Witworth, 2003) is lower than the user supplied limit Q lim. In that case, and if the user has not provided eps and Nmin (default) we propose our procedure to calculate them and obtain the smallest scale significant structure in the region.
 
 #### eps calculation: Small-scale
 We calculate the length scale for DBSCAN (epsilon) using the One point correlation function, OPCF, comparing the (REF!!! Joncour et al. paper I) first nearest neighbour distance distribution of the sample with the first nearest neighbour distance distribution of a homogeneous random distribution (CSR, or complete spatial randomness) with intensity equal to the local density derived from the mean of the 6th neighbour distribution of the sample.
@@ -92,17 +106,19 @@ We run scikit.learn’s DBSCAN for the previously calculated eps and Nmin.
 
 ### Unstructured regions
 
-If the Q parameter is larger than 0.7, and the user has not supplied an eps and Nmin, we display an error message (we cannot guarantee that the region is structured), and suggest the user to try the procedure providing eps and Nmin.
+If the Q parameter is larger than the user supplied region, and the user has not supplied eps and Nmin values, we display an error message (we cannot guarantee that the region is structured), and suggest the user to try the procedure providing eps and Nmin.
 
 #### DBSCAN detection
 We run scikit.learn’s DBSCAN for the user defined eps and Nmin.
 
 ## Acknowledging this
-Please cite (SFM, our paper, REF!!) if you use this code. 
-
+Please cite Gonzalez et al 2020 if you use this code. 
 ## References
-
 To be completed
+-Cartwright & Withworth, 2003
+-González et al 2020.
+-Joncour et al. 2017
+-Joncour et al. 2018
 
 
 
