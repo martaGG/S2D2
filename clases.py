@@ -4,6 +4,7 @@ from astropy.coordinates import SkyCoord
 from astropy import units as u
 from astropy import stats as astrostats
 from sklearn.cluster import DBSCAN
+import matplotlib.pyplot as plt
 import auxFuncts
 class StarFormingRegion:
     def __init__(self, puntos):
@@ -22,6 +23,7 @@ class StarFormingRegion:
         self.distMat=self.calculateDist()
         self.q=self.calculateQ()
         self.bBox=bBoxParams(self.points)
+        self.signif=99.85
 
     def calculateDist(self):
         """
@@ -43,9 +45,15 @@ class bBoxParams:
 
     
 class SFRegion2D(StarFormingRegion):
-    def __init__(self, puntos):
+    def __init__(self, puntos, coords):
         super(SFRegion2D,self).__init__(puntos)
-        self.distMat=self.calculateDist()
+        self.coords=coords
+        if (coords == 'Ra Dec'):
+            print('Great circle distance')
+            self.distMat=self.calculateDist()
+        else:
+            print('Euclidean distance')
+            self.distMat=super(SFRegion2D,self).calculateDist()
         self.q=self.calculateQ()
         self.estK=self.ripleyFun()
 
@@ -84,8 +92,9 @@ class SFRegion2D(StarFormingRegion):
         """
         Calculate minimum number of points
         """
-
-        pval=0.0015
+        #print('self.signif', self.signif)
+        pval=1-self.signif/100.0#0.0015
+        #print('pval',pval)
         toler=1.e-5
         k=0
         integ=1000
@@ -107,6 +116,16 @@ class SFRegion2D(StarFormingRegion):
             print("The distance epsilon must be a float (or convertible to)")
 
         return
+
+    
+    def setSignif(self, signif):
+        """
+        sets the value of the distance attribute epsilon to detect structure
+        """
+        try:
+            self.signif=float(signif)
+        except ValueError:
+            print("The significant level must be a valid percentage number (between 0 and 100)")
 
     def setNmin(self, Nmin):
         """
@@ -133,5 +152,33 @@ class SFRegion2D(StarFormingRegion):
         Uses DBSCAN to detect significant substructure
         """
         self.db = DBSCAN(eps=self.eps, min_samples=self.Nmin, metric='precomputed').fit(self.distMat)
+
+    def plotStructs(self, ofile):
+        """
+        plots a map with the structures found by dbscan which is in self.db
+        """
+        labels=self.db.labels_
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        nstruct=len(set(labels)) - (1 if -1 in labels else 0)
+        cm=plt.get_cmap('viridis')
+        cs=cm(np.arange(nstruct)/nstruct)
+        plt.scatter(self.points[:,0],self.points[:,1], marker='o', c='gray', s=5, alpha=0.7)
+        for x in range(nstruct):
+            inds=(labels==x)
+            plt.scatter(self.points[inds,0],self.points[inds,1], marker='o', c=cs[x].reshape(1,4), s=10, alpha=0.7)
+   
+        plt.xticks(fontsize=14)
+        plt.yticks(fontsize=14)
+        if(self.coords=='Ra Dec'):
+            plt.xlim(max(self.points[:,0]),min(self.points[:,0]))
+            plt.ylabel('DEC (deg)', fontsize=14)
+            plt.xlabel('RA (deg)', fontsize=14)
+        else:
+            plt.ylabel('X', fontsize=14)
+            plt.xlabel('Y', fontsize=14)           
+
+        plt.savefig(ofile)
+        plt.close(fig)
 
     

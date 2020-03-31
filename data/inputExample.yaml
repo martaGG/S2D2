@@ -4,7 +4,8 @@
   coord: 'Ra Dec',
   eps: 'None',
   Nmin: 'None',
-  Qlim: 0.7
+  Qlim: 0.7,
+  Signif: 99.85
 }
 
 
