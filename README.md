@@ -1,8 +1,8 @@
-# S2D2: Small-scale Significant DBSCAN Detection
+# S2D2: Small Significant DBSCAN Detection
 
-Python3 code for the detection of small pristine structure with 3-sigma significance associated to position/velocity of stars (or young stellar objects) in starForming Regions. Developed under the SFM (StarFormMapper) EU project.
+Python3 code for the detection of small pristine structure with user defined associated to position/velocity of stars (or young stellar objects) in starForming Regions. Developed under the SFM (StarFormMapper) EU project.
 
-S2D2 uses DBSCAN detect the smallest significant structure in a spatial/spatial-kinematic space. The procedure proposes, in structured regions, calculation of the epsilon and Nmin parameters (as described in González et al. 2020 and references therein) for DBSCAN to retrieve the smallest structures in the region with a 3-sigma level of significance. If the region is not structured, or the user wants it, eps and Nmin can be supplied, and Dbscan will be performed with these parameters, without, however, guaranteeing any level of significance.
+S2D2 uses DBSCAN detect the smallest significant structure in a spatial/spatial-kinematic space. The procedure proposes, in structured regions, calculation of the epsilon and Nmin parameters (as described in González et al. 2020 and references therein) for DBSCAN to retrieve the smallest structures in the region with a minimum level of significance. If the region is not structured, or the user wants it, eps and Nmin can be supplied, and Dbscan will be performed with these parameters, without, however, guaranteeing any level of significance.
 
 Usage example:
 ```
@@ -33,16 +33,16 @@ Example file content:
 
 ### Input parameters
 
-#### filename
+##### 1. filename
 Path for file with coordinates of stars/objects in your region.
 V1: Ascii file with header and tab delimiter
 
-#### dim
+##### 2. dim
 Dimension of the space of search.
 V1: Integer, only=2.
 Future: limited options ('2D','3D','2+2D', '3+2D'...)
 
-#### coord
+##### 3. coord
 Coordinate frame of the input, depending on the dimension
 - 2D
   - 'Ra Dec': expects input data in Right ascension, declination, in degrees to calculate the great circle distance.
@@ -50,23 +50,22 @@ Coordinate frame of the input, depending on the dimension
 
   **if a different string is input, by default it will go into 'X Y' mode 
 
-#### eps
+##### 4. eps
 Scale parameter supplied to DBSCAN, associated with the size of the structures to search.
 -Default: 'None' to search for the smallest scale in structured regions.
 -If a float eps is supplied, Nmin must also be supplied.
 
-
-#### Nmin
+##### 5. Nmin
 Number of points supplied to DBSCAN, associated with the density of a neighbourhood with radius eps.
 -Default: 'None' to calculate the Nmin guaranteeing the significance supplied by the user above random expectation.
 -If an integer Nmin is supplied, eps must also be supplied.
 
-#### Qlim
+##### 6. Qlim
 limit of Q parameter for considering a region structured, and calculate automatically the eps and Nmin values according to the procedure, as described in González et al. 2020.
 
 We note that the classical limit Q parameter for structured regions is 0.8, and that a conservative limit of 0.7 avoids the possibility of analyising a region withous structure (as described in Gonzalez et al. 2020)
 
-#### Signif
+##### 7. Signif
 Significance limit above which structures will be retrieved. Ussed to calculate the minimum number of points.  
 Must be an appropriate percentage value
 
