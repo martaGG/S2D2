@@ -1,0 +1,9 @@
+{
+  filename: './data/frac1p6_1xyz.txt',
+  dim: 3,
+  coord: 'dsf',
+  eps: 'None',
+  Nmin: 'None',
+  Qlim: 0.7,
+  Signif: 99.85
+}

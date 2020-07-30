@@ -1,4 +1,4 @@
-from clases import SFRegion2D
+from clases import SFRegion2D, SFRegion3D
 import auxFuncts
 import numpy as np 
 import argparse
@@ -51,8 +51,25 @@ if(inp['dim']==2):
         sfR2D.plotStructs(ofilplot)
     else:
         print('invalid value of eps, check documentation')
+elif(inp['dim']==3):
+    sfR3=SFRegion3D(pts, inp['coord'])
+    print('2D region created')
+    print('Q parameter',sfR3.q)
+    sfR3.calculateRho()
+    print('RHO',sfR3.rho)
+    sfR3.calculateEps()
+    print('EPS',sfR3.eps)
+    sfR3.setSignif(inp['Signif'])
+    print('SIGNIF', sfR3.signif)
+    sfR3.calculateNmin()
+    print('NMIN',sfR3.Nmin)
+    sfR3.detectStructs()
+    npts=pts.shape[0]
+    salid = np.hstack((pts,sfR3.db.labels_.reshape(npts,1)))
+    np.savetxt(ofil,salid,header=headerOutput)
+    sfR3.plotStructs()
 else:
-    print('Now, only 2 dimensions')
+    print('Now, only 2 or 3 dimensions')
 
 
 
