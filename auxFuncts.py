@@ -9,7 +9,8 @@ def readInput(fyaml):
     return inp
 
 def checkInput(inp):
-    assert (inp["dim"]== 2 |inp["dim"]==3), "only can use Dimension 2 or 3"
+    print(inp['dim'])
+    assert (inp["dim"]>= 2 &inp["dim"]<=3), "only can use Dimension 2 or 3"
     if(inp['eps']!='None'):
         assert type(inp['eps']) is float, "If Eps is provided, it must be a float"
         assert type(inp['Nmin']) is int, "If Nmin is provided, must be an integer"
