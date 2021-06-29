@@ -83,13 +83,13 @@ Python3 with libraries:
 -	numpy
 -	scipy
 -	scikit.learn
--	yaml
+-	yaml  (can be found in pip as pyyaml for installation)
 - argparse
 - matplotlib
 ## Description
 
 ### 2D
-We refer to Gonzalez et al (2020) and references therein for a complete description of the procedure.
+We refer to Gonzalez et al (2021) and references therein for a complete description of the procedure.
 
 
 ### Structured regions
@@ -118,9 +118,9 @@ Please cite Gonzalez et al 2020 if you use this code.
 ## References
 To be completed
 - Cartwright & Withworth, 2003
-- González et al 2020.
-- Joncour et al. 2017
-- Joncour et al. 2018
+- González et al. 2021.
+- Joncour et al. 2017.
+- Joncour et al. 2018.
 
 
 
