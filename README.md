@@ -89,7 +89,7 @@ Python3 with libraries:
 ## Description
 
 ### 2D
-We refer to Gonzalez et al (2021) and references therein for a complete description of the procedure.
+We refer to [González et al. 2021](https://www.aanda.org/component/article?access=doi&doi=10.1051/0004-6361/202038123) and references therein for a complete description of the procedure.
 
 
 ### Structured regions
@@ -99,7 +99,7 @@ We will consider that a starForming region is structured when the Q parameter (C
 We calculate the length scale for DBSCAN (epsilon) using the One point correlation function, OPCF, comparing the (REF!!! Joncour et al. paper I) first nearest neighbour distance distribution of the sample with the first nearest neighbour distance distribution of a homogeneous random distribution (CSR, or complete spatial randomness) with intensity equal to the local density derived from the mean of the 6th neighbour distribution of the sample.
 
 #### Nmin calculation: Significance
-We iteratively calculate the significance of a structure of that scale and a fixed number of points k until we reach 3-sigma significance (~99.85%). The significance of a structure of size eps and k points, as described in REF!! Joncour et al Paper 2, is given by the the probability of having k-1 nearest neighbours in an eps neighbourhood under a homogeneous random distribution with intensity rho.
+We iteratively calculate the significance of a structure of that scale and a fixed number of points k until we reach 3-sigma significance (~99.85%). The significance of a structure of size eps and k points, as described in Joncour et al 2018, is given by the the probability of having k-1 nearest neighbours in an eps neighbourhood under a homogeneous random distribution with intensity rho.
 
 #### DBSCAN detection
 
@@ -114,11 +114,11 @@ If the Q parameter is larger than the user supplied region, and the user has not
 We run scikit.learn’s DBSCAN for the user defined eps and Nmin.
 
 ## Acknowledging this
-Please cite Gonzalez et al 2020 if you use this code. 
+Please cite [González et al. 2021](https://www.aanda.org/component/article?access=doi&doi=10.1051/0004-6361/202038123) if you use this code. 
 ## References
 To be completed
 - Cartwright & Withworth, 2003
-- González et al. 2021.
+- [González et al. 2021](https://www.aanda.org/component/article?access=doi&doi=10.1051/0004-6361/202038123)
 - Joncour et al. 2017.
 - Joncour et al. 2018.
 
