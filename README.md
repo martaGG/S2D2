@@ -108,7 +108,7 @@ We run scikit.learn’s DBSCAN for the previously calculated eps and Nmin.
 
 ### Unstructured regions
 
-If the Q parameter is larger than the user supplied region, and the user has not supplied eps and Nmin values, we display an error message (we cannot guarantee that the region is structured), and suggest the user to try the procedure providing eps and Nmin.
+If the Q parameter in the region is larger than the limit, and the user has not supplied eps and Nmin values, we display an error message (we cannot guarantee that the region is structured), and suggest the user to try the procedure providing eps and Nmin. This limit can be changed by the user in the input file. 
 
 #### DBSCAN detection
 We run scikit.learn’s DBSCAN for the user defined eps and Nmin.
